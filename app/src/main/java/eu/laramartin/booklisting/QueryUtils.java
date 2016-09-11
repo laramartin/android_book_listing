@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lara on 11/09/2016.
@@ -15,7 +16,7 @@ public class QueryUtils {
 
     // hardcoded results of query https://www.googleapis.com/books/v1/volumes?q=android&maxResults=10
     // for testing
-    private static final String SAMPLE_JSON = "{\"kind\":\"books#volumes\",\"totalItems\":500,\"items\":["+
+    static final String SAMPLE_JSON = "{\"kind\":\"books#volumes\",\"totalItems\":500,\"items\":["+
             "{\"kind\":\"books#volume\",\"id\":\"KPjmuogFmU0C\",\"etag\":\"khFZy+4GIIc\",\"selfLink\":\"https://www.googleapis.com/books/v1/volumes/KPjmuogFmU0C\",\"volumeInfo\":{\"title\":\"AndroidAppsEntwicklungfürDummies\",\"authors\":[\"DonnFelker\"]}},"+
             "{\"kind\":\"books#volume\",\"id\":\"yFnOZwlFe7QC\",\"etag\":\"CohSOo1Y57k\",\"selfLink\":\"https://www.googleapis.com/books/v1/volumes/yFnOZwlFe7QC\",\"volumeInfo\":{\"title\":\"DasAndroidSmartphone\",\"subtitle\":\"10LektionenfürEinsteiger\",\"authors\":[\"RainerHattenhauer\"]}},"+
             "{\"kind\":\"books#volume\",\"id\":\"34S3Jt1ONTkC\",\"etag\":\"KlPbkSignig\",\"selfLink\":\"https://www.googleapis.com/books/v1/volumes/34S3Jt1ONTkC\",\"volumeInfo\":{\"title\":\"EinführungindieAndroid-Entwicklung\",\"authors\":[\"MarkoGargenta\"]}},"+
@@ -49,8 +50,7 @@ public class QueryUtils {
             if (i == 0) {
                 authorsListInString = authorsList.getString(0);
             } else {
-                String nextAuthor = ", " + authorsList.get(i);
-                authorsListInString += nextAuthor;
+                authorsListInString += ", " + authorsList.getString(i);
             }
         }
 
@@ -58,12 +58,12 @@ public class QueryUtils {
     }
 
 
-    public static ArrayList<Book> extractBooks() {
+    public static List<Book> extractBooks(String json) {
 
-        ArrayList<Book> books = new ArrayList<>();
+        List<Book> books = new ArrayList<>();
 
         try {
-            JSONObject jsonResponse = new JSONObject(SAMPLE_JSON);
+            JSONObject jsonResponse = new JSONObject(json);
             JSONArray jsonArray = jsonResponse.getJSONArray("items");
 
             Log.v("queryUtils", jsonArray.toString());

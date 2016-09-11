@@ -2,8 +2,9 @@ package eu.laramartin.booklisting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,18 +14,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ArrayList<Book> books = QueryUtils.extractBooks();
+        List<Book> books = QueryUtils.extractBooks(QueryUtils.SAMPLE_JSON);
 
-//        List<String> authors = new ArrayList<>() ;
-//        authors.add("Donn Felker");
-//        authors.add("Second Author");
-//        authors.add("Third Author");
-//
-//        String sampleAuthors = QueryUtils.formatListOfAuthors(authors);
-//
-//        Log.v("mainActivity", "sample list of authors: " + sampleAuthors);
+        BooksAdapter adapter = new BooksAdapter(this, -1);
+        adapter.addAll(books);
 
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
     }
-
-
 }
