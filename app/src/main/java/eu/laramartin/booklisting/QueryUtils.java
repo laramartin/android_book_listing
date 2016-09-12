@@ -82,7 +82,7 @@ public class QueryUtils {
                 Log.v("queryUtils", "title: " + title);
                 Log.v("queryUtils", "authors list: " + authors);
 
-                Book book = new Book(title, authors);
+                Book book = new Book(authors, title);
                 books.add(book);
             }
         } catch (JSONException e) {
