@@ -8,6 +8,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,4 +63,83 @@ public class MainActivity extends AppCompatActivity {
 
         return url;
     }
+
+//    private class AsyncTask extends android.os.AsyncTask<URL, Void, Book> {
+//
+//        @Override
+//        protected Book doInBackground(URL... urls) {
+//            return null;
+//        }
+//    }
+
+    private URL createURL(String stringUrl) {
+        URL url = null;
+        try {
+            url = new URL(stringUrl);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    private String makeHttpRequest(URL url) throws IOException {
+        String jsonResponse = "";
+
+        if (url == null){
+            return jsonResponse;
+        }
+
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.connect();
+            if (urlConnection.getResponseCode() == 200){
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e("mainActivity", "Error response code: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+
+        return jsonResponse;
+    }
+
+    private String readFromStream(InputStream inputStream) throws IOException {
+        StringBuilder output = new StringBuilder();
+        if (inputStream != null) {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String line = reader.readLine();
+            while (line != null) {
+                output.append(line);
+                line = reader.readLine();
+            }
+        }
+        return output.toString();
+    }
+
+    private List<Book> parseJson(String json) {
+
+        if (json == null) {
+            return null;
+        }
+
+        List<Book> books =  QueryUtils.extractBooks(json);
+        return books;
+    }
+
 }
