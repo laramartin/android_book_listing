@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         final String baseUrl = "https://www.googleapis.com/books/v1/volumes?q=search+";
         String formatUserInput = getUserInput().trim().replaceAll("\\s+","+");
         String url = baseUrl + formatUserInput;
-        Log.v("mainactivity", url);
         return url;
     }
 
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 jsonResponse = makeHttpRequest(url);
-                Log.v("mainactivity", "json response: " + jsonResponse);
             } catch (IOException e) {
                 e.printStackTrace();
             }

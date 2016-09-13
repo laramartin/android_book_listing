@@ -64,21 +64,14 @@ public class QueryUtils {
             }
             JSONArray jsonArray = jsonResponse.getJSONArray("items");
 
-            Log.v("queryUtils", jsonArray.toString());
-            Log.v("queryUtils", Integer.toString(jsonArray.length()));
-
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject bookObject = jsonArray.getJSONObject(i);
-                Log.v("queryUtils", "item num " + i + ": " + bookObject);
 
                 JSONObject bookInfo = bookObject.getJSONObject("volumeInfo");
-                Log.v("queryUtils", "book info: " + bookInfo);
 
                 String title = bookInfo.getString("title");
                 JSONArray authorsArray = bookInfo.getJSONArray("authors");
                 String authors = formatListOfAuthors(authorsArray);
-                Log.v("queryUtils", "title: " + title);
-                Log.v("queryUtils", "authors list: " + authors);
 
                 Book book = new Book(authors, title);
                 books.add(book);
