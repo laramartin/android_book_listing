@@ -27,7 +27,6 @@
         android:layout_alignEnd="@+id/listView"
         android:paddingRight="@dimen/activity_horizontal_margin" />
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +46,5 @@
         android:layout_below="@+id/text_no_data_found">
 
     </ListView>
-
-
 
 </RelativeLayout>

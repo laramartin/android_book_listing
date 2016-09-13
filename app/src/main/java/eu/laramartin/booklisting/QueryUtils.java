@@ -89,7 +89,4 @@ public class QueryUtils {
 
         return books;
     }
-
-
-
 }
