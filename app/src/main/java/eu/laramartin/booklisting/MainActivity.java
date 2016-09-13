@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imageButton;
     BooksAdapter adapter;
     ListView listView;
+    TextView textNoDataFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         imageButton = (ImageButton) findViewById(R.id.imageButton);
+        textNoDataFound = (TextView) findViewById(R.id.text_no_data_found);
 
         adapter = new BooksAdapter(this, -1);
 
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUi(List<Book> books){
+        if (books.isEmpty()){
+            // if no books found, show a message
+            textNoDataFound.setVisibility(View.VISIBLE);
+        } else {
+            textNoDataFound.setVisibility(View.GONE);
+        }
         adapter.clear();
         adapter.addAll(books);
     }
@@ -61,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         final String baseUrl = "https://www.googleapis.com/books/v1/volumes?q=search+";
         String formatUserInput = getUserInput().trim().replaceAll("\\s+","+");
         String url = baseUrl + formatUserInput;
+        Log.v("mainactivity", url);
         return url;
     }
 
@@ -73,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 jsonResponse = makeHttpRequest(url);
+                Log.v("mainactivity", "json response: " + jsonResponse);
             } catch (IOException e) {
                 e.printStackTrace();
             }

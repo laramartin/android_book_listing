@@ -58,6 +58,10 @@ public class QueryUtils {
 
         try {
             JSONObject jsonResponse = new JSONObject(json);
+
+            if (jsonResponse.getInt("totalItems") == 0) {
+                return books;
+            }
             JSONArray jsonArray = jsonResponse.getJSONArray("items");
 
             Log.v("queryUtils", jsonArray.toString());

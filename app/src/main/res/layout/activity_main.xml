@@ -28,11 +28,23 @@
         android:paddingRight="@dimen/activity_horizontal_margin" />
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/text_no_data_found"
+        android:text="@string/noDataFound"
+        android:layout_below="@+id/editText"
+        tools:visibility="visible"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        style="@style/title"/>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/editText">
+        android:layout_below="@+id/text_no_data_found">
 
     </ListView>
 
