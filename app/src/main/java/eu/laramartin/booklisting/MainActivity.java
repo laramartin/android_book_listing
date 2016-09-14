@@ -1,5 +1,8 @@
 package eu.laramartin.booklisting;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,10 +49,21 @@ public class MainActivity extends AppCompatActivity {
         imageButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookAsyncTask task = new BookAsyncTask();
-                task.execute();
+                if (isInternetConnectionAvailable()){
+                    BookAsyncTask task = new BookAsyncTask();
+                    task.execute();
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.error_no_internet,
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private boolean isInternetConnectionAvailable(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork.isConnectedOrConnecting();
     }
 
     private void updateUi(List<Book> books){
