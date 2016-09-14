@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (savedInstanceState != null) {
-            Book[] books = (Book[]) savedInstanceState.getSerializable(SEARCH_RESULTS);
+            Book[] books = (Book[]) savedInstanceState.getParcelableArray(SEARCH_RESULTS);
             adapter.addAll(books);
         }
     }
@@ -195,6 +196,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < books.length; i++) {
             books[i] = adapter.getItem(i);
         }
-        outState.putSerializable(SEARCH_RESULTS, books);
+        outState.putParcelableArray(SEARCH_RESULTS, (Parcelable[]) books);
     }
 }
