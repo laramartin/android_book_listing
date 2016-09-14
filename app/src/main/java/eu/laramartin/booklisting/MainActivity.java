@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     BooksAdapter adapter;
     ListView listView;
     TextView textNoDataFound;
+    static final String SEARCH_RESULTS = "booksSearchResults";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (savedInstanceState != null) {
+            Book[] books = (Book[]) savedInstanceState.getSerializable(SEARCH_RESULTS);
+            adapter.addAll(books);
+        }
     }
 
     private boolean isInternetConnectionAvailable(){
@@ -180,5 +186,15 @@ public class MainActivity extends AppCompatActivity {
             List<Book> books =  QueryUtils.extractBooks(json);
             return books;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Book[] books = new Book[adapter.getCount()];
+        for (int i = 0; i < books.length; i++) {
+            books[i] = adapter.getItem(i);
+        }
+        outState.putSerializable(SEARCH_RESULTS, books);
     }
 }
