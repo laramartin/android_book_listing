@@ -3,9 +3,8 @@
 - [Android Basics Nanodegree at Udacity.com](https://www.udacity.com/course/android-basics-nanodegree-by-google--nd803).
 
 # Description
-- Book Listing app.
+- Search books by author or title. 
 - Retrieves data from Google Books API. 
-- Any title or author can be search. 
 - Only the first 10 results will be displayed. 
 
 # Screenshot
