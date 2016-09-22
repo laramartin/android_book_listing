@@ -8,4 +8,4 @@
 - Only the first 10 results will be displayed. 
 
 # Screenshot
-<img src="https://raw.githubusercontent.com/laramartin/android_book_listing/master/device-2016-09-13-213903.png" width="300"/>
+<img src="https://raw.githubusercontent.com/laramartin/android_book_listing/master/device-2016-09-16-194100.png" width="300"/>
