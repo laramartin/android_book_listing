@@ -2,6 +2,13 @@
 - Project **Book Listing** of Android Basics Nanodegree
 - [Android Basics Nanodegree at Udacity.com](https://www.udacity.com/course/android-basics-nanodegree-by-google--nd803).
 
+## Android Goodies
+- HttpURLConnection.
+- AsyncTask.
+- JSON Parsing.
+- ArrayAdapter.
+- ListView.
+
 # Description
 - Search books by author or title. 
 - Retrieves data from Google Books API. 
